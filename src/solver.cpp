@@ -27,7 +27,7 @@ std::vector<double> solveByJacobi(
     for (int i_conv = 0; i_conv < max_iteration; i_conv++)
     {
         // 三角行列のため、iのみの繰り返しとする。
-        for (int i = 0; i < max_iteration; i++) {
+        for (int i = 0; i < mesh_size; i++) {
             double sum = 0.0;
             
             // 境界部分は場合分け。
@@ -49,16 +49,20 @@ std::vector<double> solveByJacobi(
 
         double norm = calculateNorm(T_current, T_prev);
 
-        // 収束判定
-        if (norm < torelance){
-            break;
-        }
-        else{
-            T_prev = T_current;
-        }
+        // 収束判定 
+        // 修正：T_prev = T_currentを外に出す
+        if (norm < torelance) break;
+        //     break;
+        // }
+        // else{
+        //     T_prev = T_current;
+        // }
+        T_prev = T_current;
         
         // 最大繰り返し回数のエラー処理
-        if (i_conv == max_iteration)
+        // 判定式を修正
+        // if (i_conv == max_iteration)
+        if (i_conv == max_iteration-1 && norm >= torelance)
         {
             std::cout << "最大繰り返し数を超えました。解は参考値です。" << std::endl;
         }
