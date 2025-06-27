@@ -32,7 +32,14 @@ int main(){
     makeVector_b(boundary_T_left, boundary_T_right, k_deltax, heatSourceCell, vectot_b);
 
     printCoefffMatrix(matrix_coeff);
-    printVector_b(vectot_b);
+    printVector(vectot_b, "右辺ベクトル");
+
+    double torelance = 1.e-6;
+    int max_iteration = 10;
+
+    std::vector<double> vectot_T_result = solveByJacobi(matrix_coeff, vectot_b, torelance, max_iteration);
+    printVector(vectot_T_result, "解ベクトル");
+
 
     return 0;
 

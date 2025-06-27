@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
-
+#include <string>
 
 
 int makeCoeffMatrix(double k_deltax, std::vector<std::vector<double>> &matrix_coeff);
@@ -17,4 +17,4 @@ int makeVector_b(
 
 void printCoefffMatrix(std::vector<std::vector<double>> &matrix_coeff);
 
-void printVector_b(std::vector<double> &vectot_b);
+void printVector(std::vector<double> &vectot_b, std::string vectorDescription);

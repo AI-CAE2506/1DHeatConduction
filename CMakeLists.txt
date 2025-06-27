@@ -10,9 +10,11 @@ add_executable(heat_conduction
     src/makeMatrixEquation.cpp
     src/meshGeneration.cpp
     src/main.cpp
+    src/solver.cpp
     include/makeMatrixEquation.h
     include/meshGeneration.h
     include/main.h
+    include/solver.h
 )
 
 target_include_directories(heat_conduction PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

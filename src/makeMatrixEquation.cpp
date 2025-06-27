@@ -78,13 +78,13 @@ void printCoefffMatrix(std::vector<std::vector<double>> &matrix_coeff){
     }
 }
 
-void printVector_b(std::vector<double> &vectot_b){
+void printVector(std::vector<double> &vectot_b, std::string vectorDescription){
     int row_size = vectot_b.size();
 
     std::cout << std::fixed;
     std::cout << std::setprecision(0);
 
-    std::cout << "右辺ベクトルb" << std::endl;
+    std::cout << vectorDescription << std::endl;
     
     for (size_t i = 0; i < row_size; i++)
     {
