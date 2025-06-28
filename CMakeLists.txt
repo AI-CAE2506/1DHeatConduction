@@ -1,21 +1,30 @@
 cmake_minimum_required(VERSION 3.10)
 
-# C++11機能を有効にする
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 project(1DHeatConduction CXX)
 
-add_executable(heat_conduction 
-    src/makeMatrixEquation.cpp
-    src/meshGeneration.cpp
-    src/main.cpp
-    src/solver.cpp
-    include/makeMatrixEquation.h
-    include/meshGeneration.h
-    include/main.h
-    include/solver.h
+# FetchContent を含める (nlohmann/json用)
+include(FetchContent)
+
+FetchContent_Declare(
+  nlohmann_json
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG        v3.11.3 # 使用したいバージョンタグを指定
 )
+FetchContent_MakeAvailable(nlohmann_json)
+
+# srcディレクトリ内のすべての .cpp ファイルを取得
+# GLOB_RECURSE を使うとサブディレクトリも検索しますが、現在の構造ではGLOBで十分です
+file(GLOB SOURCE_FILES "src/*.cpp")
+
+# add_executable に取得したソースファイルを渡す
+# ヘッダファイルは通常、target_include_directories でコンパイラにパスを伝えるため、
+# add_executable に含める必要はありません（コンパイル対象は.cppファイルです）
+add_executable(heat_conduction ${SOURCE_FILES})
 
 target_include_directories(heat_conduction PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+# nlohmann/json を実行ファイルにリンクする
+target_link_libraries(heat_conduction PRIVATE nlohmann_json::nlohmann_json)
