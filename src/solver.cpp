@@ -7,6 +7,19 @@ std::vector<double> solveByJacobi(
     int max_iteration // 最大反復回数
 ) {
     int mesh_size = A.size();
+    std::string outputFileName = "output.txt";
+
+    // 途中経過出力ファイルの設定
+    std::ofstream outputFile(outputFileName);
+    if (!outputFile.is_open()) {
+        std::cerr << "ファイルが開けません: " << outputFileName << std::endl;
+        return std::vector<double>();
+    }
+    outputFile << std::fixed;
+    outputFile << std::setprecision(3);
+    outputFile << std::setw(8) << "反復回数" << " " << std::setw(8) << "残差" << std::endl;
+
+
     std::vector<double> T_current(mesh_size, 0.0); // 解の初期化
 
     std::vector<double> T_prev; // 前回の計算値を格納する
@@ -49,6 +62,9 @@ std::vector<double> solveByJacobi(
 
         double norm = calculateNorm(T_current, T_prev);
 
+        outputFile << std::setw(8) << i_conv << " " << std::setw(8) << norm << std::endl;
+
+
         // 収束判定 
         // 修正：T_prev = T_currentを外に出す
         if (norm < torelance) break;
@@ -68,6 +84,8 @@ std::vector<double> solveByJacobi(
         }
         
     }
+
+    outputFile.close();
 
     return T_current;
 

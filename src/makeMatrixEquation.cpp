@@ -82,7 +82,7 @@ void printVector(std::vector<double> &vectot_b, std::string vectorDescription){
     int row_size = vectot_b.size();
 
     std::cout << std::fixed;
-    std::cout << std::setprecision(0);
+    std::cout << std::setprecision(3);
 
     std::cout << vectorDescription << std::endl;
     

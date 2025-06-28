@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <stdexcept>
+#include <fstream>
 
 std::vector<double> solveByJacobi(
     const std::vector<std::vector<double>>& A, //係数行列式

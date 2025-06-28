@@ -35,7 +35,7 @@ int main(){
     printVector(vectot_b, "右辺ベクトル");
 
     double torelance = 1.e-6;
-    int max_iteration = 10;
+    int max_iteration = 100;
 
     std::vector<double> vectot_T_result = solveByJacobi(matrix_coeff, vectot_b, torelance, max_iteration);
     printVector(vectot_T_result, "解ベクトル");
