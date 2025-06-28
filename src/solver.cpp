@@ -3,11 +3,11 @@
 std::vector<double> solveByJacobi(
     const std::vector<std::vector<double>>& A, //係数行列式
     const std::vector<double>& b, //右辺ベクトル
-    double torelance, // 許容誤差
+    double tolerance, // 許容誤差
     int max_iteration // 最大反復回数
 ) {
     int mesh_size = A.size();
-    std::string outputFileName = "output.txt";
+    std::string outputFileName = "../1DheatConduction/output.txt";
 
     // 途中経過出力ファイルの設定
     std::ofstream outputFile(outputFileName);
@@ -67,7 +67,7 @@ std::vector<double> solveByJacobi(
 
         // 収束判定 
         // 修正：T_prev = T_currentを外に出す
-        if (norm < torelance) break;
+        if (norm < tolerance) break;
         //     break;
         // }
         // else{
@@ -78,7 +78,7 @@ std::vector<double> solveByJacobi(
         // 最大繰り返し回数のエラー処理
         // 判定式を修正
         // if (i_conv == max_iteration)
-        if (i_conv == max_iteration-1 && norm >= torelance)
+        if (i_conv == max_iteration-1 && norm >= tolerance)
         {
             std::cout << "最大繰り返し数を超えました。解は参考値です。" << std::endl;
         }
