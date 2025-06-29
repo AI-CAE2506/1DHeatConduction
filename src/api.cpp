@@ -72,9 +72,16 @@ extern "C" API_EXPORT void run_1d_heat_conduction(
         }
         if (resultfile.is_open()){ resultfile.close(); }
 
-
+    } catch (const std::runtime_error& e) {
+        // Jacobi法からのエラーをここで捕捉
+        std::cerr << "Caught C++ Exception (from solveByJacobi): " << e.what() << std::endl;
+        // Pythonには何らかの方法でエラーを伝える（ここでは未実装）
     } catch (const std::exception& e) {
+        // その他の標準例外エラーをここで捕捉
         std::cerr << "エラーが発生しました: " << e.what() << std::endl;
+    } catch (...) {
+        // その他全ての例外を捕捉
+        std::cerr << "未知のエラーが発生しました。" << std::endl;
     }
 
 }

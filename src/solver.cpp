@@ -35,8 +35,9 @@ std::vector<double> solveByJacobi(
     {
         if (A[i][i] == 0.0)
         {
-            std::cout << "対角要素に0要素が含まれています。別の方法を検討してください" << std::endl;
-            return T_current;
+            // std::cout << "対角要素に0要素が含まれています。別の方法を検討してください" << std::endl;
+            // 例外を返す
+            throw std::runtime_error("対角要素に0要素が含まれています。別の方法を検討してください(solveByJacobi)");
         }
     }
     
