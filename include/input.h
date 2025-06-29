@@ -18,6 +18,8 @@ struct SimulationParameters {
     double boundary_T_right;
     double tolerance;
     int max_iteration;
+    bool makeMidResidual;
+    std::string output_csv_filename;
 };
 
 SimulationParameters readParametersFromJson(const std::string& filename);

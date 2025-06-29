@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <fstream>
 
 
 int makeCoeffMatrix(double k_deltax, std::vector<std::vector<double>> &matrix_coeff);
