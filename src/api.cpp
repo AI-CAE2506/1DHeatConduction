@@ -1,5 +1,6 @@
 #include "api.h"
 
+// コア処理をこちらに移す。
 extern "C" API_EXPORT void run_1d_heat_conduction(
     double total_length, 
     int num_cells, 

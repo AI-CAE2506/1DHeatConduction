@@ -5,6 +5,7 @@ int main(){
     // インプットファイルから入力データを読み込む
     SimulationParameters input_params = readParametersFromJson("input.json");
 
+    // C++から実行するときはこちらを実行。
     run_1d_heat_conduction(
         input_params.total_length, 
         input_params.num_cells, 
@@ -18,9 +19,11 @@ int main(){
         input_params.output_csv_filename.c_str() // 結果を出力するCSVファイル名
     );
 
+    // 以下のコア部分は"api.cpp"に移動
+
     // try {
 
-        // 以下のコア部分は"api.cpp"に移動
+
     //     double mesh_size = input_params.total_length / input_params.num_cells;    
 
     //     // メッシュ分割とセル中心位置の取得
