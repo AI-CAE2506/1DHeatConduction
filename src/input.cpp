@@ -1,17 +1,5 @@
 #include "input.h"
 
-// // 設定を保持する構造体などを作成すると、コードが整理されます
-// struct SimulationParameters {
-//     double total_length;
-//     int num_cells;
-//     double heat_conductance;
-//     double heat_source;
-//     double boundary_t_left;
-//     double boundary_t_right;
-//     double solver_tolerance;
-//     int solver_max_iterations;
-// };
-
 // JSONファイルからパラメータを読み込む関数
 SimulationParameters readParametersFromJson(const std::string& filename) {
     std::ifstream ifs(filename);
@@ -33,6 +21,8 @@ SimulationParameters readParametersFromJson(const std::string& filename) {
     params.boundary_T_right = data.at("boundary_T_right").get<double>();
     params.tolerance = data.at("tolerance").get<double>();
     params.max_iteration = data.at("max_iteration").get<int>();
+    params.makeMidResidual = data.at("makeMidResidual").get<bool>();
+    params.output_csv_filename = data.at("output_csv_filename").get<std::string>();
 
     return params;
 }

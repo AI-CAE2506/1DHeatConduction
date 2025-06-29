@@ -23,8 +23,14 @@ file(GLOB SOURCE_FILES "src/*.cpp")
 # ヘッダファイルは通常、target_include_directories でコンパイラにパスを伝えるため、
 # add_executable に含める必要はありません（コンパイル対象は.cppファイルです）
 add_executable(heat_conduction ${SOURCE_FILES})
-
 target_include_directories(heat_conduction PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # nlohmann/json を実行ファイルにリンクする
 target_link_libraries(heat_conduction PRIVATE nlohmann_json::nlohmann_json)
+
+
+# 共有ライブラリビルドに変更
+add_library(heat_conduction_solver SHARED ${SOURCE_FILES})
+
+target_include_directories(heat_conduction_solver PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(heat_conduction_solver PRIVATE nlohmann_json::nlohmann_json)

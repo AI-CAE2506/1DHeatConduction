@@ -4,20 +4,25 @@ std::vector<double> solveByJacobi(
     const std::vector<std::vector<double>>& A, //係数行列式
     const std::vector<double>& b, //右辺ベクトル
     double tolerance, // 許容誤差
-    int max_iteration // 最大反復回数
+    int max_iteration, // 最大反復回数
+    bool makeMidResidual = true // 途中経過出力の実行有無
 ) {
     int mesh_size = A.size();
-    std::string outputFileName = "../1DheatConduction/output.txt";
+    std::string outputFileName = "midResidual.csv";
 
-    // 途中経過出力ファイルの設定
-    std::ofstream outputFile(outputFileName);
-    if (!outputFile.is_open()) {
-        std::cerr << "ファイルが開けません: " << outputFileName << std::endl;
-        return std::vector<double>();
+    std::ofstream outputFile;
+    if (makeMidResidual)
+    {
+        // 途中経過出力ファイルの設定。makeMidResidual = trueの場合のみ開く
+        outputFile.open(outputFileName);
+        if (!outputFile.is_open()) {
+            std::cerr << "ファイルが開けません: " << outputFileName << std::endl;
+            return std::vector<double>();
+        }
+        outputFile << std::fixed;
+        outputFile << std::setprecision(3);
+        outputFile << std::setw(8) << "反復回数" << "," << std::setw(8) << "残差" << std::endl;
     }
-    outputFile << std::fixed;
-    outputFile << std::setprecision(3);
-    outputFile << std::setw(8) << "反復回数" << " " << std::setw(8) << "残差" << std::endl;
 
 
     std::vector<double> T_current(mesh_size, 0.0); // 解の初期化
@@ -62,8 +67,10 @@ std::vector<double> solveByJacobi(
 
         double norm = calculateNorm(T_current, T_prev);
 
-        outputFile << std::setw(8) << i_conv << " " << std::setw(8) << norm << std::endl;
-
+        // 途中結果の出力
+        if (makeMidResidual){
+            outputFile << std::setw(8) << i_conv << "," << std::setw(8) << norm << std::endl;
+        }
 
         // 収束判定 
         // 修正：T_prev = T_currentを外に出す
@@ -85,7 +92,10 @@ std::vector<double> solveByJacobi(
         
     }
 
-    outputFile.close();
+        // ファイルが開いていれば、ファイルを閉じる
+    if (outputFile.is_open()) {
+        outputFile.close();
+    }
 
     return T_current;
 
